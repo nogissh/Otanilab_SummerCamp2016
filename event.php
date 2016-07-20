@@ -74,14 +74,6 @@ EOT;
 
 //
 function content_titlebar(){
-  $send_source = <<<EOT
-<div>
-  <p>aa</p>
-</div>
-EOT;
-  $option1 = "opacity:'0.7', duration:'0.7', backgroundColor:'#000', noClickHide:'0'";
-  $option2 = "top:'50px', left:'50px', width:'450px', height:'', noHideButton:'1'";
-
   echo <<<EOT
 <div id="header">
   <div id="header_body">
@@ -89,7 +81,7 @@ EOT;
       <h1>イベント出欠確認システム</h1>
     </div>
     <div id="header_button">
-      <input type="button" name="new_create_button" value="イベントを作成する" id="new_create_button" onclick="">
+      <input type="button" name="new_create_button" value="イベントを作成する" id="new_create_button">
     </div>
   </div>
 </div>
