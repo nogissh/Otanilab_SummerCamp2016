@@ -77,15 +77,15 @@ PHPここまで，
 </div>
 <div class="modal-body" id="modal-body-origin">
   <div class="newCreateLayout">
-    <h5 class="newCreateTitle">イベントの名前</h5>
+    <h5 class="newCreateTitle">イベント名</h5>
     <input type="text" name="newEventName" value="" class="newCreateText">
   </div>
   <div class="newCreateLayout">
-    <h5 class="newCreateTitle">イベント作成者</h5>
-    <input type="text" name="newEventMaster" value="" class="newCreateText">
+    <h5 class="newCreateTitle">詳細</h5>
+    <textarea name="newEventDetail" class="newCreateDetail"></textarea>
   </div>
   <div class="newCreateLayout">
-    <h5 class="newCreateTitle">イベントの日時</h5>
+    <h5 class="newCreateTitle">日時または候補</h5>
 <?php
 //Year
 echo '      <select name="eventYear">'."\n";
@@ -128,8 +128,8 @@ echo '      </select>'."\n";
  ?>
   </div>
   <div class="newCreateLayout">
-    <h5 class="newCreateTitle">イベントの詳細</h5>
-    <textarea name="newEventDetail" class="newCreateDetail"></textarea>
+    <h5 class="newCreateTitle">作成者</h5>
+    <input type="text" name="newEventMaster" value="" class="newCreateText">
   </div>
 </div>
 <div class="modal-footer">
