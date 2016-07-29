@@ -9,8 +9,14 @@
 //$moduelCheck = include('eventModules/readFile.php');
 //if(!$moduleCheck){ exit('ERROR: Directory "eventModules" does not exist.');}
 
+//初期変数
+$thisPage = 'event.php';
+$pageTitle = '出欠確認システム - Otanilab Project';
+$copyRight = 'Toshiki Ohnogi, Noriko Otani';
+
 //現在取得
-$nowDate = date(Y/m/d);
+date_default_timezone_set('Asia/Tokyo');  //タイムゾーンを指定
+$nowDate = date(Y-m-d);
 $nowYear = date(Y);
 $nowMonth = date(m);
 $nowDay = date(d);
@@ -22,28 +28,17 @@ if($mode == ''){
 }
 elseif($mode == 'newCreate'){
   //イベント作成
-  $title  = $_POST['newEventName'];
-  $master = $_POST['newEventMaster'];
-  $detail = $_POST['newEventDetail'];
-
+  include('eventModules/createEvent.php');
 }
 elseif($mode == 'rootControl'){
   //システム管理者
 }
-
-//イベントの読み込み
-
-//初期変数
-$thisPage = 'event.php';
-$pageTitle = '出欠確認システム - Otanilab Project';
-$copyRight = 'Toshiki Ohnogi, Noriko Otani';
 /*////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 PHPここまで，
 //////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////*/
 ?>
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -51,8 +46,22 @@ PHPここまで，
 <meta http-equiv="Content-Style-Type" content="text/css">
 <link rel="stylesheet" href="styles/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="styles/css/style.css">
+<link rel="stylesheet" href="styles/css/jquery-ui.css">
 <script src="styles/js/jquery-1.9.1.min.js"></script>
+<script src="styles/js/jquery-ui.min.js"></script>
+<script src="styles/js/jquery.ui.datepicker-ja.min.js"></script>
 <script src="styles/js/bootstrap.min.js"></script>
+<script>
+$(function() {
+  $("#datepickerOne").datepicker();
+});
+$(function() {
+  $("#datepickerTwo").datepicker();
+});
+$(function() {
+  $("#datepickerThree").datepicker();
+});
+</script>
 <title><?php echo $pageTitle; ?></title>
 </head>
 <body>
@@ -77,55 +86,33 @@ PHPここまで，
 </div>
 <div class="modal-body" id="modal-body-origin">
   <div class="newCreateLayout">
-    <h5 class="newCreateTitle">イベント名</h5>
+    <h5 class="newCreateTitle">イベント名 <span class="inputMust">※必須</span></h5>
     <input type="text" name="newEventName" value="" class="newCreateText">
   </div>
   <div class="newCreateLayout">
-    <h5 class="newCreateTitle">詳細</h5>
+    <h5 class="newCreateTitle">詳細 <span class="inputMust">※必須</span></h5>
     <textarea name="newEventDetail" class="newCreateDetail"></textarea>
   </div>
   <div class="newCreateLayout">
-    <h5 class="newCreateTitle">日時または候補</h5>
-<?php
-//Year
-echo '      <select name="eventYear">'."\n";
-for($y = $nowYear; $y < $nowYear + 5; $y++){
-  if($y == $nowYear){
-    $selected = ' selected';
-  }
-  else{
-    $selected = '';
-  }
-  echo '        <option value="'.$y.'"'.$selected.'>'.$y.'</option>'."\n";
-}
-echo '      </select>'."\n";
-
-//Month
-echo '      <select name="eventMonth">'."\n";
-for($m = 1; $m < 12 + 1; $m++){
-  if($m == $nowMonth){
-    $selected = ' selected';
-  }
-  else{
-    $selected = '';
-  }
-  echo '        <option value="'.$m.'"'.$selected.'>'.$m.'</option>'."\n";
-}
-echo '      </select>'."\n";
-
-//Day
-echo '      <select name="eventDay">'."\n";
-for($d = 1; $d < 31 + 1; $d++){
-  if($d == $nowDay){
-    $selected = ' selected';
-  }
-  else{
-    $selected = '';
-  }
-  echo '        <option value="'.$d.'"'.$selected.'>'.$d.'</option>'."\n";
-}
-echo '      </select>'."\n";
- ?>
+    <h5 class="newCreateTitle">日時または候補 <span class="inputMust">※「候補1」は必須</span></h5>
+    <span>候補1: </span>
+    <input type="text" name="newEventDate1" id="datepickerOne" class="newCreateScheduleDate"><br>
+    <span>候補2: </span>
+    <input type="text" name="newEventDate2" id="datepickerTwo" class="newCreateScheduleDate"><br>
+    <span>候補3: </span>
+    <input type="text" name="newEventDate3" id="datepickerThree" class="newCreateScheduleDate"><br>
+  </div>
+  <div class="newCreateLayout">
+    <h5 class="newCreateTitle">予算</h5>
+    <input type="text" name="newEventCost" value="" class="newCreateText">
+  </div>
+  <div class="newCreateLayout">
+    <h5 class="newCreateTitle">場所</h5>
+    <input type="text" name="newEventPlace" value="" class="newCreateText">
+  </div>
+  <div class="newCreateLayout">
+    <h5 class="newCreateTitle">URL</h5>
+    <input type="text" name="newEventUrl" value="" class="newCreateText">
   </div>
   <div class="newCreateLayout">
     <h5 class="newCreateTitle">作成者</h5>
