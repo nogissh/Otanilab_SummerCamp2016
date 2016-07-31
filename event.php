@@ -33,6 +33,9 @@ elseif($mode == 'newCreate'){
 elseif($mode == 'rootControl'){
   //システム管理者
 }
+
+//
+$eventEcho = include('eventModules/echoEvent.php');
 /*////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
 PHPここまで，
@@ -44,24 +47,14 @@ PHPここまで，
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="Content-Style-Type" content="text/css">
-<link rel="stylesheet" href="styles/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="styles/css/style.css">
 <link rel="stylesheet" href="styles/css/jquery-ui.css">
+<link rel="stylesheet" href="styles/css/bootstrap.min.css">
+<link rel="stylesheet" href="styles/css/style.css">
 <script src="styles/js/jquery-1.9.1.min.js"></script>
 <script src="styles/js/jquery-ui.min.js"></script>
 <script src="styles/js/jquery.ui.datepicker-ja.min.js"></script>
 <script src="styles/js/bootstrap.min.js"></script>
-<script>
-$(function() {
-  $("#datepickerOne").datepicker();
-});
-$(function() {
-  $("#datepickerTwo").datepicker();
-});
-$(function() {
-  $("#datepickerThree").datepicker();
-});
-</script>
+<script src="styles/js/myScript.js"></script>
 <title><?php echo $pageTitle; ?></title>
 </head>
 <body>
@@ -72,7 +65,7 @@ $(function() {
       <h1 id="pageGeneralTitle">イベント出欠確認システム</h1>
     </div>
     <div id="header_button">
-      <button type="button" name="new_create_button" data-toggle="modal" data-target="#myModal" id="newCreateButton">イベント作成</button>
+      <button type="button" name="newCreateButton" data-toggle="modal" data-target="#myModal" id="newCreateButton">イベント作成</button>
     </div>
   </div>
 </div>
@@ -87,35 +80,35 @@ $(function() {
 <div class="modal-body" id="modal-body-origin">
   <div class="newCreateLayout">
     <h5 class="newCreateTitle">イベント名 <span class="inputMust">※必須</span></h5>
-    <input type="text" name="newEventName" value="" class="newCreateText">
+    <input type="text" name="newEventName" maxlength="20" value="" class="newCreateText">
   </div>
   <div class="newCreateLayout">
     <h5 class="newCreateTitle">詳細 <span class="inputMust">※必須</span></h5>
     <textarea name="newEventDetail" class="newCreateDetail"></textarea>
   </div>
   <div class="newCreateLayout">
-    <h5 class="newCreateTitle">日時または候補 <span class="inputMust">※「候補1」は必須</span></h5>
-    <span>候補1: </span>
-    <input type="text" name="newEventDate1" id="datepickerOne" class="newCreateScheduleDate"><br>
-    <span>候補2: </span>
-    <input type="text" name="newEventDate2" id="datepickerTwo" class="newCreateScheduleDate"><br>
-    <span>候補3: </span>
-    <input type="text" name="newEventDate3" id="datepickerThree" class="newCreateScheduleDate"><br>
+    <h5 class="newCreateTitle">日時 <span class="inputMust">※必須</span></h5>
+    <input type="text" name="newEventDate" style="text-align: right;" id="decideDate" class="newCreateText"><br>
   </div>
   <div class="newCreateLayout">
     <h5 class="newCreateTitle">予算</h5>
-    <input type="text" name="newEventCost" value="" class="newCreateText">
+    <input type="text" name="newEventCost" value="" style="text-align: right;" class="newCreateText">
+    <span>円</span>
   </div>
   <div class="newCreateLayout">
     <h5 class="newCreateTitle">場所</h5>
-    <input type="text" name="newEventPlace" value="" class="newCreateText">
+    <input type="text" name="newEventPlace" maxlength="60" value="" class="newCreateText">
   </div>
   <div class="newCreateLayout">
     <h5 class="newCreateTitle">URL</h5>
-    <input type="text" name="newEventUrl" value="" class="newCreateText">
+    <input type="text" name="newEventUrl" maxlength="200" value="" class="newCreateText">
   </div>
   <div class="newCreateLayout">
-    <h5 class="newCreateTitle">作成者</h5>
+    <h5 class="newCreateTitle">申請締切日</h5>
+    <input type="text" name="newEventLimit" style="text-align: right;" id="limitDate" class="newCreateText">
+  </div>
+  <div class="newCreateLayout">
+    <h5 class="newCreateTitle">作成者　<span class="inputMust">※必須</span></h5>
     <input type="text" name="newEventMaster" value="" class="newCreateText">
   </div>
 </div>
@@ -127,10 +120,17 @@ $(function() {
 </div>
 <!-- イベント一覧 -->
 <div id="content_main">
+<?php
+  foreach($eventEcho as $echo){
+    echo $echo;
+  }
+ ?>
 </div>
 <!-- 権利など -->
-<div id="copyright">
-<small>© Otani-lab Project (<?php echo $copyRight; ?>)</small>
+<div id="footer">
+<div id="footerCopyright">
+  <small id="copyright">© Otani-lab Project (<?php echo $copyRight; ?>)</small>
+</div>
 </div>
 </form>
 </body>
