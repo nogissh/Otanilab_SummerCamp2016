@@ -5,6 +5,9 @@ $date = preg_split("/\//", $event[2]);
 if($event[3] == ''){
   $event[3] = "指定なし";
 }
+if($event[4] == ''){
+  $event[4] = '指定なし';
+}
 ////
 
   $echo = <<<EOT
@@ -34,20 +37,32 @@ if($event[3] == ''){
   </div>
 </div>
 <div class="modal fade" id="myModal_$name">
-<div class="modal-dialog">
-<div class="modal-content">
-<div class="modal-header">
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <h4 class="modal-title">$event[0]</h4>
-</div>
-<div class="modal-body" id="modal-body-origin">
-  <p>test</p>
-</div>
-<div class="modal-footer">
-  <button type="button" name="submitButton" value="newCreate" class="btn btn-primary">確認</button>
-</div>
-</div>
-</div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">$event[0]</h3>
+        <span>$event[5]</span>
+      </div>
+      <div class="modal-body" id="modal-body-origin">
+        <div class="eventAbout">
+          <div class="eventAboutDate">
+            <p>開催日： <span>$event[2]</span></p>
+          </div>
+          <div class="eventAboutDetail">
+            <p>$event[1]</p>
+          </div>
+          <hr class="eventAboutHr">
+          <div class="eventAboutCost">
+            <p>予算： $event[4]</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" name="submitButton" value="newCreate" class="btn btn-primary">確認</button>
+      </div>
+    </div>
+  </div>
 </div>
 EOT;
 
@@ -97,6 +112,9 @@ if($handle = opendir($eventPath)){
     }
     //echo "$file\n";
   }
+
+  //逆順にする
+  $eventList = array_reverse($eventList, true);
 }
 
 if(count($eventList) == 0){

@@ -28,7 +28,7 @@ textarea {
 }
 
 hr {
-  width: 95%;
+  width: 100%;
 }
 
 /* 共通のスタイル */
@@ -93,6 +93,12 @@ hr {
   margin-bottom: 4px;
 }
 
+.newCreateHr {
+  width: 100%;
+  border-color: #dcdcdc;
+  margin: 25px auto;
+}
+
 .newCreateText {
   border:0;
   padding:6px;
@@ -154,6 +160,8 @@ hr {
   background-color: #f5f5f5;
   border-color: #dcdcdc;
   border-radius: 2px;
+  -webkit-transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, -webkit-transform 0.3s;
+  transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, transform 0.3s;
 }
 
 .eventContent:hover {
@@ -230,6 +238,13 @@ hr {
   width: 500px;
   margin: 0 auto;
   margin-top: 35px;
+}
+
+/* */
+.eventAboutHr {
+  width: 100%;
+  border-color: #dcdcdc;
+  margin: 25px auto;
 }
 
 /* ボタンなどの指定されたスタイル */

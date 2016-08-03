@@ -58,7 +58,7 @@ PHPここまで，
 <title><?php echo $pageTitle; ?></title>
 </head>
 <body>
-<form action="event.php" method="post">
+<form action="event.php" method="post" id="eventForm">
 <div id="header">
   <div id="header_body">
     <div id="header_title">
@@ -78,21 +78,30 @@ PHPここまで，
   <h4 class="modal-title">イベントを作成する</h4>
 </div>
 <div class="modal-body" id="modal-body-origin">
+  <h3 class="newCreateTitleBig">作成者情報を入力</h3>
+  <div class="newCreateLayout">
+    <h5 class="newCreateTitle">あなたの名前　<span class="inputMust">※必須</span></h5>
+    <input type="text" name="newEventMaster" value="" id="newCreateEventMaster" class="newCreateTextNarrow">
+  </div>
+  <hr class="newCreateHr">
+  <h3 class="newCreateTitleBig">タイトルと説明文を入力</h3>
   <div class="newCreateLayout">
     <h5 class="newCreateTitle">イベント名 <span class="inputMust">※必須</span></h5>
-    <input type="text" name="newEventName" maxlength="20" value="" class="newCreateText">
+    <input type="text" name="newEventName" maxlength="20" value=""  id="newCreateEventTitle" class="newCreateText">
   </div>
   <div class="newCreateLayout">
     <h5 class="newCreateTitle">詳細 <span class="inputMust">※必須</span></h5>
-    <textarea name="newEventDetail" class="newCreateDetail"></textarea>
+    <textarea name="newEventDetail" id="newCreateEventDetail" class="newCreateDetail"></textarea>
   </div>
+  <hr class="newCreateHr">
+  <h3 class="newCreateTitleBig">追加情報の入力</h3>
   <div class="newCreateLayout">
     <h5 class="newCreateTitle">日時 <span class="inputMust">※必須</span></h5>
-    <input type="text" name="newEventDate" style="text-align: right;" id="decideDate" class="newCreateText"><br>
+    <input type="text" name="newEventDate" style="text-align: right;" id="newCreateEventDate" class="newCreateTextNarrow"><br>
   </div>
   <div class="newCreateLayout">
     <h5 class="newCreateTitle">予算</h5>
-    <input type="text" name="newEventCost" value="" style="text-align: right;" class="newCreateText">
+    <input type="text" name="newEventCost" value="" style="text-align: right;" class="newCreateTextNarrow">
     <span>円</span>
   </div>
   <div class="newCreateLayout">
@@ -105,16 +114,31 @@ PHPここまで，
   </div>
   <div class="newCreateLayout">
     <h5 class="newCreateTitle">申請締切日</h5>
-    <input type="text" name="newEventLimit" style="text-align: right;" id="limitDate" class="newCreateText">
-  </div>
-  <div class="newCreateLayout">
-    <h5 class="newCreateTitle">作成者　<span class="inputMust">※必須</span></h5>
-    <input type="text" name="newEventMaster" value="" class="newCreateText">
+    <input type="text" name="newEventLimit" style="text-align: right;" id="newCreateEventLimitDate" class="newCreateTextNarrow">
   </div>
 </div>
 <div class="modal-footer">
-  <button type="submit" name="submitButton" value="newCreate" class="btn btn-primary">作成</button>
+  <button type="submit" name="submitButton" value="newCreate" id="confirmCreateButton" class="btn btn-primary">作成</button>
 </div>
+<script>
+function checkCreateSubmit() {
+  var titleValue = parseInt((document.forms.eventForm.newCreateEventTitle.value).length);
+  var detailValue = parseInt((document.forms.eventForm.newCreateEventDetail.value).length);
+  var dateValue = parseInt((document.forms.eventForm.newCreateEventDate.value).length);
+  var masterValue = parseInt((document.forms.eventForm.newCreateEventMaster.value).length);
+
+  if(titleValue > 0 && detailValue > 0 && dateValue > 0 && masterValue > 0){
+    console.log("into");
+    $("#confirmCreateButton").prop("disabled", false);
+  }
+  else{
+    $("#confirmCreateButton").prop("disabled", true);
+  }
+  //&& detailValue > 0 && dateValue > 0 && limitdateValue > 0
+}
+//
+setInterval('checkCreateSubmit()', 1);
+</script>
 </div>
 </div>
 </div>

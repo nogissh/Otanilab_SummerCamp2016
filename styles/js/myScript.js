@@ -1,11 +1,11 @@
 //予定日のカレンダー
 $(function() {
-  $("#decideDate").datepicker();
+  $("#newCreateEventDate").datepicker();
 });
 
 //締切日のカレンダー
 $(function() {
-  $("#limitDate").datepicker();
+  $("#newCreateEventLimitDate").datepicker();
 });
 
 //divのリンク化
