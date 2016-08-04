@@ -47,10 +47,12 @@ PHPここまで，
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="stylesheet" href="styles/css/animate.css">
 <link rel="stylesheet" href="styles/css/jquery-ui.css">
 <link rel="stylesheet" href="styles/css/bootstrap.min.css">
 <link rel="stylesheet" href="styles/css/style.css">
 <script src="styles/js/jquery-1.9.1.min.js"></script>
+<script src="styles/js/animatedModal.min.js"></script>
 <script src="styles/js/jquery-ui.min.js"></script>
 <script src="styles/js/jquery.ui.datepicker-ja.min.js"></script>
 <script src="styles/js/bootstrap.min.js"></script>
@@ -116,9 +118,12 @@ PHPここまで，
     <h5 class="newCreateTitle">申請締切日</h5>
     <input type="text" name="newEventLimit" style="text-align: right;" id="newCreateEventLimitDate" class="newCreateTextNarrow">
   </div>
+  <div>
+    <button type="submit" name="submitButton" value="newCreate" class="submitButton" id="confirmCreateButton">イベントを作成</button>
+  </div>
 </div>
 <div class="modal-footer">
-  <button type="submit" name="submitButton" value="newCreate" id="confirmCreateButton" class="btn btn-primary">作成</button>
+  <button type="reset" name="submitButton" class="btn btn-primary">閉じる</button>
 </div>
 <script>
 function checkCreateSubmit() {

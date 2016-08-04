@@ -241,6 +241,109 @@ hr {
 }
 
 /* */
+.eventEntry {
+  width: 100%;
+}
+
+.eventApplied {
+
+}
+
+.eventAppliedYes {
+  width: 95%;
+  height: 80px;
+  margin: 5px auto;
+  border: 1px #dcdcdc solid;
+  border-radius: 2px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.eventAppliedNo {
+  width: 95%;
+  height: 80px;
+  margin: 5px auto;
+  border: 1px #dcdcdc solid;
+  border-radius: 2px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.eventEntryTitle {
+  width: 100%;
+  text-align: center;
+}
+
+.eventParticipationTextPosition {
+  width: 65%;
+  margin: 5px auto;
+}
+
+.eventParticipationText {
+  border:0;
+  padding:6px;
+  font-size:13px;
+  color:#222;
+  text-align: center;
+  border:solid 1px #ccc;
+  width:100%;
+  margin:3px auto;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-shadow: inset 0 0 4px rgba(0,0,0,0.2);
+  -moz-box-shadow: inset 1px 4px 9px -6px rgba(0,0,0,0.5);
+  -webkit-box-shadow: inset 1px 4px 9px -6px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 1px 4px 9px -6px rgba(0,0,0,0.5);
+}
+
+.eventEntryButton {
+  width: 325px;
+  margin: 5px auto;
+}
+
+.eventEntryButton input[type="radio"] {
+  display: None;
+}
+
+.eventEntryButton label {
+  display:inline-block;
+  font-family: Meiryo;
+  width: 160px;
+  height: 38px;
+  color:#2a2a2a;
+  background-color: #fff;
+  border: 1px solid #dcdcdc;
+  border-radius: 2px;
+  margin-top: 11px;
+  padding-top: 8px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.eventEntryButton label:hover {
+  color: #fff;
+  background-color: #f0a151;
+  -webkit-transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, -webkit-transform 0.3s;
+  transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.eventEntryButton label:active {
+  background-color: #97520d;
+  -webkit-transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, -webkit-transform 0.3s;
+  transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.eventEntryButton input[type="radio"]:checked + label {
+  color: #fff;
+  background-color: #f0a151;
+}
+
+.eventEntrySubmit {
+  width: 280px;
+  margin: 0 auto;
+}
+
 .eventAboutHr {
   width: 100%;
   border-color: #dcdcdc;
@@ -267,6 +370,27 @@ hr {
 #newCreateButton:hover{
 	background-color:#C71585 !important;
 	color:#fff;
+  border-radius: 3px
+  -webkit-transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, -webkit-transform 0.3s;
+  transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.submitButton {
+  font-family: Meiryo;
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  width: 280px;
+  height: 60px;
+  margin-top: 11px;
+  background-color: #FF69B4;
+  border: none;
+  border-radius: 3px;
+}
+
+.submitButton:hover {
+  background-color:#C71585 !important;
+  color:#fff;
   border-radius: 3px
   -webkit-transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, -webkit-transform 0.3s;
   transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, transform 0.3s;

@@ -1,14 +1,14 @@
 <?php
 function makeEchoTags($event, $name){
-////
-$date = preg_split("/\//", $event[2]);
-if($event[3] == ''){
-  $event[3] = "指定なし";
-}
-if($event[4] == ''){
-  $event[4] = '指定なし';
-}
-////
+  ////
+  $date = preg_split("/\//", $event[2]);
+  if($event[3] == ''){
+    $event[3] = "指定なし";
+  }
+  if($event[4] == ''){
+    $event[4] = '指定なし';
+  }
+  ////
 
   $echo = <<<EOT
 <div class="eventContent" class="wrap" data-toggle="modal" data-target="#myModal_$name">
@@ -42,7 +42,6 @@ if($event[4] == ''){
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h3 class="modal-title">$event[0]</h3>
-        <span>$event[5]</span>
       </div>
       <div class="modal-body" id="modal-body-origin">
         <div class="eventAbout">
@@ -52,14 +51,41 @@ if($event[4] == ''){
           <div class="eventAboutDetail">
             <p>$event[1]</p>
           </div>
-          <hr class="eventAboutHr">
           <div class="eventAboutCost">
             <p>予算： $event[4]</p>
+          </div>
+          <hr class="eventAboutHr">
+          <div class="eventApplied">
+            <h5>参加</h5>
+            <div class="eventAppliedYes">
+              <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+            </div>
+            <h5>不参加</h5>
+            <div class="eventAppliedNo">
+            <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+            </div>
+          </div>
+          <hr class="eventAboutHr">
+          <div class="eventEntry">
+            <h4 class="eventEntryTitle">学籍番号または名前を入力してください</h4>
+            <p>リストから選択することもできます．</p>
+            <div class="eventParticipationTextPosition">
+              <input type="text" name="eventParticipator" value="" class="eventParticipationText">
+            </div>
+            <div class="eventEntryButton">
+              <input type="radio" name="entry" value="yes" id="radioYes_$name">
+              <label for="radioYes_$name" class="eventParticipationButtonYes">参加</label>
+              <input type="radio" name="entry" value="no" class="eventParticipationButtonNo" id="radioNo_$name">
+              <label for="radioNo_$name" class="eventParticipationButtonNo">不参加</label>
+            </div>
+            <div class="eventEntrySubmit">
+              <button type="submit" name="submitButton" value="entryEvent" class="submitButton" id="entrySubmit_$name">出欠を送信</button>
+            </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" name="submitButton" value="newCreate" class="btn btn-primary">確認</button>
+        <button type="reset" data-dismiss="modal" aria-label="Close" class="btn btn-primary">閉じる</button>
       </div>
     </div>
   </div>
@@ -122,6 +148,9 @@ if(count($eventList) == 0){
 }
 else{
   foreach($eventList as $eventName){
+    if($eventName == '.DS_Store'){
+      continue;
+    }
     $eventData = file_get_contents($eventPath.'/'.$eventName, true);
     //echo 'eventName:'.$eventName."\n";
     //echo 'event:'.$event."\n";
