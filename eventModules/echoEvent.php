@@ -47,38 +47,24 @@ function makeEchoTags($event, $name){
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h3 class="modal-title">$event[0]</h3>
+        <span>$event[5]</span>
       </div>
       <div class="modal-body" id="modal-body-origin">
         <div class="eventAbout">
-          <div class="eventEntry">
-            <h4 class="eventEntryTitle">名前を入力してください</h4>
-            <div class="eventParticipationTextPosition">
-              <input type="text" name="eventParticipator" value="" class="eventParticipationText">
-            </div>
-            <div class="eventEntryButton">
-              <input type="radio" name="entry" value="yes" id="radioYes_$name">
-              <label for="radioYes_$name" class="eventParticipationButtonYes">参加</label>
-              <input type="radio" name="entry" value="no" class="eventParticipationButtonNo" id="radioNo_$name">
-              <label for="radioNo_$name" class="eventParticipationButtonNo">不参加</label>
-            </div>
-            <div class="eventEntrySubmit">
-              <button type="submit" name="submitButton" value="entryEvent" class="entrySubmit" id="entrySubmit_$name">出欠を送信</button>
-            </div>
-          </div>
-          <hr class="eventAboutHr">
           <div class="eventAboutDate">
             <p>開催日： <span>$event[2]</span></p>
           </div>
           <div class="eventAboutDetail">
             <p>$event[1]</p>
           </div>
+          <hr class="eventAboutHr">
           <div class="eventAboutCost">
             <p>予算： $event[4]</p>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="reset" data-dismiss="modal" aria-label="Close" class="btn btn-primary">閉じる</button>
+        <button type="button" name="submitButton" value="newCreate" class="btn btn-primary">確認</button>
       </div>
     </div>
   </div>
