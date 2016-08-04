@@ -1,15 +1,20 @@
 <?php
 function makeEchoTags($event, $name){
-////
-$date = preg_split("/\//", $event[2]);
-if($event[3] == ''){
-  $event[3] = "指定なし";
-}
-if($event[4] == ''){
-  $event[4] = '指定なし';
-}
-////
-
+  ////
+  $date = preg_split("/\//", $event[2]);
+  if($event[3] == ''){
+    $event[3] = "指定なし";
+  }
+  if($event[4] == ''){
+    $event[4] = '指定なし';
+  }
+  ////
+  //文字コード変換
+  //for($i == 0; $i < count($event); $i++){
+  //  $event[$i] = mb_convert_encoding($event[$i], "UTF-8", "auto");
+  //}
+  $event[0] = mb_convert_encoding($event[0], "UTF-8", "auto");
+  ////
   $echo = <<<EOT
 <div class="eventContent" class="wrap" data-toggle="modal" data-target="#myModal_$name">
   <div class="eventHeader">
@@ -103,6 +108,7 @@ EOT;
 
 //////////////////////////////////////
 //////////////////////////////////////
+//
 
 $eventPath = 'events';
 $eventList = array();
@@ -136,6 +142,9 @@ if(count($eventList) == 0){
 }
 else{
   foreach($eventList as $eventName){
+    if($eventName == '.DS_Store'){
+      continue;
+    }
     $eventData = file_get_contents($eventPath.'/'.$eventName, true);
     //echo 'eventName:'.$eventName."\n";
     //echo 'event:'.$event."\n";
