@@ -1,4 +1,11 @@
 <?php
+/*////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+上部でPHPの処理，下部でHTMLを出力．
+必要に応じてHTMLタグ中でPHPを適用し，変数などを出力．
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////*/
+
 function makeEchoTags($event, $name){
   ////
   $date = preg_split("/\//", $event[2]);
@@ -11,85 +18,7 @@ function makeEchoTags($event, $name){
   ////
 
   $echo = <<<EOT
-<div class="eventContent" class="wrap" data-toggle="modal" data-target="#myModal_$name">
-  <div class="eventHeader">
-    <div style="float: left;">
-      <h3 class="eventTitle">$event[0]</h3>
-    </div>
-    <div style="float: right; margin:28px 16px 2px 5px;">
-      <span>作成者： $event[5]</span>
-    </div>
-  </div>
-  <hr class="eventCollumHr">
-  <div class="eventCollum">
-    <div class="eventDate">
-      <span>開催日： $date[0]年 $date[1]月 $date[2]日</span>
-    </div>
-    <div class="eventStatement">
-      <p>$event[1]</p>
-    </div>
-  </div>
-  <hr class="eventCollumHr">
-  <div class="eventFooter">
-    <div style="text-align: right; margin-right: 30px;">
-      <span>締切日：$event[3]</span>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="myModal_$name">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title">$event[0]</h3>
-      </div>
-      <div class="modal-body" id="modal-body-origin">
-        <div class="eventAbout">
-          <div class="eventAboutDate">
-            <p>開催日： <span>$event[2]</span></p>
-          </div>
-          <div class="eventAboutDetail">
-            <p>$event[1]</p>
-          </div>
-          <div class="eventAboutCost">
-            <p>予算： $event[4]</p>
-          </div>
-          <hr class="eventAboutHr">
-          <div class="eventApplied">
-            <h5>参加</h5>
-            <div class="eventAppliedYes">
-              <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-            </div>
-            <h5>不参加</h5>
-            <div class="eventAppliedNo">
-            <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-            </div>
-          </div>
-          <hr class="eventAboutHr">
-          <div class="eventEntry">
-            <h4 class="eventEntryTitle">学籍番号または名前を入力してください</h4>
-            <p>リストから選択することもできます．</p>
-            <div class="eventParticipationTextPosition">
-              <input type="text" name="eventParticipator" value="" class="eventParticipationText">
-            </div>
-            <div class="eventEntryButton">
-              <input type="radio" name="entry" value="yes" id="radioYes_$name">
-              <label for="radioYes_$name" class="eventParticipationButtonYes">参加</label>
-              <input type="radio" name="entry" value="no" class="eventParticipationButtonNo" id="radioNo_$name">
-              <label for="radioNo_$name" class="eventParticipationButtonNo">不参加</label>
-            </div>
-            <div class="eventEntrySubmit">
-              <button type="submit" name="submitButton" value="entryEvent" class="submitButton" id="entrySubmit_$name">出欠を送信</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="reset" data-dismiss="modal" aria-label="Close" class="btn btn-primary">閉じる</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 EOT;
 
   //
@@ -164,4 +93,131 @@ else{
 
 //
 return $eventEcho;
+
+/*////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////*/
+
+//
+class eventEchoContent{
+
+  function __construct(){
+    //コンストラクタ
+  }
+
+  function __destruct(){
+    //デストラクタ
+  }
+
+  private function echoContent($event, $name){
+    //
+    $echo <<<EOT
+<div class="eventContent" class="wrap" data-toggle="modal" data-target="#myModal_$name">
+  <div class="eventHeader">
+    <div style="float: left;">
+      <h3 class="eventTitle">$event[0]</h3>
+    </div>
+    <div style="float: right; margin:28px 16px 2px 5px;">
+      <span>作成者： $event[5]</span>
+    </div>
+  </div>
+  <hr class="eventCollumHr">
+  <div class="eventCollum">
+    <div class="eventDate">
+      <span>開催日： $date[0]年 $date[1]月 $date[2]日</span>
+    </div>
+    <div class="eventStatement">
+      <p>$event[1]</p>
+    </div>
+  </div>
+  <hr class="eventCollumHr">
+  <div class="eventFooter">
+    <div style="text-align: right; margin-right: 30px;">
+      <span>締切日：$event[3]</span>
+    </div>
+  </div>
+</div>
+EOT;
+
+    //
+    return $echo;
+  }
+}
+
+
+//
+class eventEchoModal {
+
+  function __construct(){
+    //コンストラクタ
+  }
+
+  function __destruct(){
+    //デストラクタ
+  }
+
+  private function echoModal($event, $name){
+    $echo <<<EOT
+<div class="modal fade" id="myModal_$name">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">$event[0]</h3>
+      </div>
+      <div class="modal-body" id="modal-body-origin">
+        <div class="eventAbout">
+          <div class="eventAboutDate">
+            <p>開催日： <span>$event[2]</span></p>
+          </div>
+          <div class="eventAboutDetail">
+            <p>$event[1]</p>
+          </div>
+          <div class="eventAboutCost">
+            <p>予算： $event[4]</p>
+          </div>
+          <hr class="eventAboutHr">
+          <div class="eventApplied">
+            <h5>参加</h5>
+            <div class="eventAppliedYes">
+              <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+            </div>
+            <h5>不参加</h5>
+            <div class="eventAppliedNo">
+            <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+            </div>
+          </div>
+          <hr class="eventAboutHr">
+          <div class="eventEntry">
+            <h4 class="eventEntryTitle">学籍番号または名前を入力してください</h4>
+            <p>リストから選択することもできます．</p>
+            <div class="eventParticipationTextPosition">
+              <input type="text" name="eventParticipator" value="" class="eventParticipationText">
+            </div>
+            <div class="eventEntryButton">
+              <input type="radio" name="entry" value="yes" id="radioYes_$name">
+              <label for="radioYes_$name" class="eventParticipationButtonYes">参加</label>
+              <input type="radio" name="entry" value="no" class="eventParticipationButtonNo" id="radioNo_$name">
+              <label for="radioNo_$name" class="eventParticipationButtonNo">不参加</label>
+            </div>
+            <div class="eventEntrySubmit">
+              <button type="submit" name="submitButton" value="entryEvent" class="submitButton" id="entrySubmit_$name">出欠を送信</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="reset" data-dismiss="modal" aria-label="Close" class="btn btn-primary">閉じる</button>
+      </div>
+    </div>
+  </div>
+</div>
+EOT;
+
+  //
+  return $echo;
+  }
+}
  ?>

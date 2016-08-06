@@ -157,9 +157,9 @@ setInterval('checkCreateSubmit()', 1);
 </div>
 <!-- 権利など -->
 <div id="footer">
-<div id="footerCopyright">
-  <small id="copyright">© Otani-lab Project (<?php echo $copyRight; ?>)</small>
-</div>
+  <div id="footerCopyright">
+    <small id="copyright">© Otani-lab Project (<?php echo $copyRight; ?>)</small>
+  </div>
 </div>
 </form>
 </body>
