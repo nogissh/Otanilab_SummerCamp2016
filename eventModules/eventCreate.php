@@ -37,7 +37,11 @@ $detail = str_replace("\n", ",", $detail);
 /////////////////////////////////////////////*/
 ////書込処理
 $eventID = time(); //エポックタイムをIDとする
-$handle = fopen('events/'.(string)$eventID, 'w');
+//イベントのディレクトリ作成
+mkdir('events/'.(string)$eventID, 0777);
+
+//イベントのファイル作成と書き込み
+$handle = fopen('events/'.(string)$eventID.'/event.csv', 'w');
 fwrite($handle, $title."\n");
 fwrite($handle, $detail."\n");
 fwrite($handle, $date."\n");
@@ -47,6 +51,10 @@ fwrite($handle, $master."\n");
 //fwrite($handle, $place."\n");
 //fwrite($handle, $url."\n");
 fclose($handle);
+
+//メンバーディレクトリを作成
+mkdir('events/'.(string)$eventID.'/member', 0777);
+
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 

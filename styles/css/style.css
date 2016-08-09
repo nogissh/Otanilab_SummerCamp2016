@@ -151,6 +151,15 @@ hr {
   box-shadow: inset 1px 4px 9px -6px rgba(0,0,0,0.5);
 }
 
+#newCreateSubmit {
+  width: 280px;
+  margin: 5px auto;
+}
+
+#newCreateDate_add {
+  height: 150px;
+}
+
 /* イベント */
 .eventContent {
   width: 580px;
@@ -245,28 +254,46 @@ hr {
   width: 100%;
 }
 
-.eventApplied {
-
-}
-
-.eventAppliedYes {
+.eventAppliedList {
+  z-index: 5;
   width: 95%;
-  height: 80px;
+  height: 60px;
   margin: 5px auto;
-  border: 1px #dcdcdc solid;
+  border: 1px #c9c9c9 solid;
   border-radius: 2px;
+  -moz-box-shadow: inset 0 0 2px 3px #f5f5f5;
+  -webkit-box-shadow: inset 0 0 2px 3px #f5f5f5;
+  box-shadow: inner 0 0 2px 3px #f5f5f5;
   overflow-x: auto;
   white-space: nowrap;
 }
 
-.eventAppliedNo {
-  width: 95%;
-  height: 80px;
-  margin: 5px auto;
-  border: 1px #dcdcdc solid;
+.entryTrueElement {
+  display: inline-block;
+  width: 100px;
+  height: 35px;
+  margin: 5px;
+  margin-top: 11px;
+  margin-left: 12px;
+  padding-top: 8px;
+  border: 1px #ffe6c6 solid;
   border-radius: 2px;
-  overflow-x: auto;
-  white-space: nowrap;
+  text-align: center;
+  background-color: #ffe6c6;
+}
+
+.entryFalseElement {
+  display: inline-block;
+  width: 100px;
+  height: 35px;
+  margin: 5px;
+  margin-top: 11px;
+  margin-left: 12px;
+  padding-top: 8px;
+  border: 1px #f4f4f4 solid;
+  border-radius: 2px;
+  text-align: center;
+  background-color: #f4f4f4;
 }
 
 .eventEntryTitle {
@@ -298,7 +325,7 @@ hr {
 }
 
 .eventEntryButton {
-  width: 325px;
+  width: 300px;
   margin: 5px auto;
 }
 
@@ -308,16 +335,15 @@ hr {
 
 .eventEntryButton label {
   display:inline-block;
-  font-family: Meiryo;
-  width: 160px;
-  height: 38px;
-  color:#2a2a2a;
-  background-color: #fff;
+  width: 145px;
+  height: 140px;
+  color:#fff;
+  background-color: #ffe6c6;
   border: 1px solid #dcdcdc;
   border-radius: 2px;
   margin-top: 11px;
-  padding-top: 8px;
-  font-size: 16px;
+  padding-top: 55px;
+  font-size: 20px;
   text-align: center;
 }
 
@@ -347,8 +373,9 @@ hr {
 .eventAboutHr {
   width: 100%;
   border-color: #dcdcdc;
-  margin: 25px auto;
+  margin: 30px auto;
 }
+
 
 /* ボタンなどの指定されたスタイル */
 #pageGeneralTitle {
@@ -366,11 +393,34 @@ hr {
   background-color: #FF69B4;
   border: none;
   border-radius: 3px;
+  -webkit-transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, -webkit-transform 0.3s;
+  transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, transform 0.3s;
 }
 #newCreateButton:hover{
 	background-color:#C71585 !important;
 	color:#fff;
-  border-radius: 3px
+  border-radius: 3px;
+  -webkit-transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, -webkit-transform 0.3s;
+  transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+#rootControlButton {
+  font-family: Meiryo;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  width: 40px;
+  height: 38px;
+  margin-top: 11px;
+  background-color: #0089CE;
+  border: none;
+  border-radius: 3px;
+  -webkit-transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, -webkit-transform 0.3s;
+  transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+#rootControlButton:hover {
+  background-color:#006699 !important;
   -webkit-transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, -webkit-transform 0.3s;
   transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, transform 0.3s;
 }

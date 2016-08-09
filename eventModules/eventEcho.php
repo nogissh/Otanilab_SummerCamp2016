@@ -8,6 +8,10 @@
 
 function makeEchoTags($event, $name){
   ////
+  $trueCount = 0;
+  $falseCount = 0;
+  $memberList = array();
+  ////
   $date = preg_split("/\//", $event[2]);
   if($event[3] == ''){
     $event[3] = "指定なし";
@@ -15,105 +19,84 @@ function makeEchoTags($event, $name){
   if($event[4] == ''){
     $event[4] = '指定なし';
   }
+
+  //デフォルトメンバーを取得
+  $defaultList = include("eventModules/readMember.php");
+
+  ////メンバーリストを取得
+  if($handle = opendir("events/".$name."/member")){
+    //echo "into";
+    while (false != ($member = readdir($handle))) {
+      //echo "into roop";
+      if($member != '.' && $member != '..' && $member != '.DS_Store'){
+        //echo "into push";
+        array_push($memberList, $member);
+      }
+      //echo "$memberList\n";
+    }
+  }
+
   ////
-
-  $echo = <<<EOT
-
-EOT;
-
-  //
-  $echo = $echo."\n";
-
-  //
-  return $echo;
-}
-
-function noEvent(){
-  $echo = <<<EOT
-<div>
-  <p>イベントを作成しよう！<p>
+  $entryTrue = "";
+  $entryFalse = "";
+  if(count($memberList) > 0){
+    //参加登録が1人以上いれば処理
+    foreach($memberList as $member){
+      if($file = file_get_contents('events/'.$name.'/member/'.$member)){
+        if(strpos($file, "true") !== false){
+          $trueCount += 1;
+          $echoTrue = <<<EOT
+<div class="entryTrueElement">
+  <span>$member</span>
 </div>
 EOT;
-
-  //
-  $echo = $echo."\n";
-
-  //
-  return $echo;
-}
-
-//////////////////////////////////////
-//////////////////////////////////////
-
-$eventPath = 'events';
-$eventList = array();
-$eventEcho = array();
-/*
-$eventEcho[0] <<<EOT
-<div>
-~~~
+          $entryTrue = $entryTrue.$echoTrue."\n";
+        }
+        elseif(strpos($file, "false") !== false){
+          $falseCount += 1;
+          $echoFalse = <<<EOT
+<div class="entryFalseElement">
+  <span>$member</span>
 </div>
 EOT;
-*/
-///////////////////////
-//ファイルの読み込み
-if($handle = opendir($eventPath)){
-  //echo "Directory handle: $handle\n";
-  //echo "Files:\n";
-
-  while (false != ($file = readdir($handle))) {
-    if($file != '.' && $file != '..'){
-      array_push($eventList, $file);
+          $entryFalse = $entryFalse.$echoFalse."\n";
+        }
+        else{
+          echo "into error";
+        }
+      }
+      else{
+        //echo "error";
+        break;
+      }
     }
-    //echo "$file\n";
-  }
-
-  //逆順にする
-  $eventList = array_reverse($eventList, true);
-}
-
-if(count($eventList) == 0){
-  array_push($eventEcho, noEvent());
-}
-else{
-  foreach($eventList as $eventName){
-    if($eventName == '.DS_Store'){
-      continue;
+    if($entryTrue !== ""){
+      $trueCount = (string)$trueCount."人";
     }
-    $eventData = file_get_contents($eventPath.'/'.$eventName, true);
-    //echo 'eventName:'.$eventName."\n";
-    //echo 'event:'.$event."\n";
-    $event = preg_split("/\n/", $eventData); //改行で項目区切り
-    $event[1] = str_replace(",", "<br>", $event[1]); //カンマを改行に変換
-    $event[1] = str_replace("#comma", ",", $event[1]); //カンマタグをカンマに変換
-
-    array_push($eventEcho, makeEchoTags($event, $eventName));
-  }
-}
-
-//
-return $eventEcho;
-
-/*////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////*/
-
-//
-class eventEchoContent{
-
-  function __construct(){
-    //コンストラクタ
+    if($entryFalse !== ""){
+      $falseCount = (string)$falseCount."人";
+    }
   }
 
-  function __destruct(){
-    //デストラクタ
+
+  ////
+  if($entryTrue == ''){
+    $entryTrue = <<<EOT
+<div style="margin-top: 10px; margin-left: 12px;">
+  <span>メンバーはいません</span>
+</div>
+EOT;
+  }
+  if($entryFalse == ''){
+    $entryFalse = <<<EOT
+<div style="margin-top: 10px; margin-left: 12px;">
+  <span>メンバーはいません</span>
+</div>
+EOT;
   }
 
-  private function echoContent($event, $name){
-    //
-    $echo <<<EOT
+  ////
+  $echo = <<<EOT
 <div class="eventContent" class="wrap" data-toggle="modal" data-target="#myModal_$name">
   <div class="eventHeader">
     <div style="float: left;">
@@ -139,27 +122,6 @@ class eventEchoContent{
     </div>
   </div>
 </div>
-EOT;
-
-    //
-    return $echo;
-  }
-}
-
-
-//
-class eventEchoModal {
-
-  function __construct(){
-    //コンストラクタ
-  }
-
-  function __destruct(){
-    //デストラクタ
-  }
-
-  private function echoModal($event, $name){
-    $echo <<<EOT
 <div class="modal fade" id="myModal_$name">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -180,30 +142,35 @@ class eventEchoModal {
           </div>
           <hr class="eventAboutHr">
           <div class="eventApplied">
-            <h5>参加</h5>
-            <div class="eventAppliedYes">
-              <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+            <div style="padding-left: 15px;">
+              <h5 style="float: left;">参加</h5>
+              <span style="float: left; margin-top:9px; margin-left: 15px;">$trueCount</span>
             </div>
-            <h5>不参加</h5>
-            <div class="eventAppliedNo">
-            <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+            <div class="eventAppliedList">
+$entryTrue
+            </div>
+            <div style="margin-top: 15px; padding-left: 15px;">
+              <h5 style="float: left;">不参加</h5>
+              <span style="float: left; margin-top:9px; margin-left: 15px;">$falseCount</span>
+            </div>
+            <div class="eventAppliedList">
+$entryFalse
             </div>
           </div>
           <hr class="eventAboutHr">
           <div class="eventEntry">
             <h4 class="eventEntryTitle">学籍番号または名前を入力してください</h4>
-            <p>リストから選択することもできます．</p>
             <div class="eventParticipationTextPosition">
-              <input type="text" name="eventParticipator" value="" class="eventParticipationText">
+              <input type="text" name="eventParticipator_$name" value="" maxlength="7" class="eventParticipationText">
             </div>
             <div class="eventEntryButton">
-              <input type="radio" name="entry" value="yes" id="radioYes_$name">
-              <label for="radioYes_$name" class="eventParticipationButtonYes">参加</label>
-              <input type="radio" name="entry" value="no" class="eventParticipationButtonNo" id="radioNo_$name">
-              <label for="radioNo_$name" class="eventParticipationButtonNo">不参加</label>
+              <input type="radio" name="entry_$name" value="true" id="radioYes_$name">
+              <label for="radioYes_$name" class="eventParticipationButtonYes">参加する！</label>
+              <input type="radio" name="entry_$name" value="false" class="eventParticipationButtonNo" id="radioNo_$name">
+              <label for="radioNo_$name" class="eventParticipationButtonNo">参加しない...</label>
             </div>
             <div class="eventEntrySubmit">
-              <button type="submit" name="submitButton" value="entryEvent" class="submitButton" id="entrySubmit_$name">出欠を送信</button>
+              <button type="submit" name="submitButton" value="eventEntry_$name" class="submitButton" id="entrySubmit_$name">出欠を送信</button>
             </div>
           </div>
         </div>
@@ -215,9 +182,75 @@ class eventEchoModal {
   </div>
 </div>
 EOT;
+  //
+  $echo = $echo."\n";
 
   //
   return $echo;
+}
+
+function noEvent(){
+  $echo = <<<EOT
+<div>
+  <p>イベントを作成しよう！<p>
+</div>
+EOT;
+
+  //
+  $echo = $echo."\n";
+
+  //
+  return $echo;
+}
+
+//////////////////////////////////////
+//////////////////////////////////////
+
+//宣言
+$eventPath = 'events';
+$eventList = array();
+$eventEcho = array();
+
+//ファイルの読み込み
+if($handle = opendir($eventPath)){
+  //echo "Directory handle: $handle\n";
+  //echo "Files:\n";
+
+  while (false != ($file = readdir($handle))) {
+    if($file != '.' && $file != '..'){
+      array_push($eventList, $file);
+    }
+    //echo "$file\n";
+  }
+
+  //逆順にする
+  $eventList = array_reverse($eventList, true);
+}
+
+//イベントが１件以上なら表示のフロー
+//なければない案内を
+if(count($eventList) == 0){
+  array_push($eventEcho, noEvent());
+}
+else{
+  foreach($eventList as $eventName){
+    if($eventName == '.DS_Store'){
+      if(count($eventList) == 1){
+        array_push($eventEcho, noEvent());
+      }
+      continue;
+    }
+    $eventData = file_get_contents($eventPath.'/'.$eventName.'/event.csv', true);
+    //echo 'eventName:'.$eventName."\n";
+    //echo 'event:'.$event."\n";
+    $event = preg_split("/\n/", $eventData); //改行で項目区切り
+    $event[1] = str_replace(",", "<br>", $event[1]); //カンマを改行に変換
+    $event[1] = str_replace("#comma", ",", $event[1]); //カンマタグをカンマに変換
+
+    array_push($eventEcho, makeEchoTags($event, $eventName));
   }
 }
+
+//
+return $eventEcho;
  ?>
