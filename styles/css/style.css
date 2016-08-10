@@ -425,6 +425,10 @@ hr {
   transition: color 0.3s, background-color 0.3s, box-shadow 0.3s, transform 0.3s;
 }
 
+.listEvent {
+  width: 150px;
+}
+
 .submitButton {
   font-family: Meiryo;
   color: #fff;
